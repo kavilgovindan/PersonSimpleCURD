@@ -1,0 +1,34 @@
+﻿
+@model IEnumerable<PersonSimpleCURD.Models.PersonModel>
+
+ <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Name)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Age)
+                </th>
+                <th>
+                    Action
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model) {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Age)
+                    </td>
+                    <td>
+                        <a class="btn btn-primary text-white" onclick="showModelPopup('@Url.Action("AddOrEdit", "PersonModels", new {id=item.Id} ,Context.Request.Scheme)','Update Person')">Edit</a>|  
+                        <a class="btn btn-danger text-white" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>

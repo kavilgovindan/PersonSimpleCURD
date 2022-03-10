@@ -1,0 +1,25 @@
+﻿@model IEnumerable<PersonSimpleCURD.Models.PersonModel>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+
+<div class="row align-items-center">
+    <div class="col-md-6">
+        <h1>Persons List</h1>
+    </div>
+    <div class="col-md-6 ">
+        <a class="btn btn-success text-white float-right" onclick="showModelPopup('@Url.Action("AddOrEdit","PersonModels",null,Context.Request.Scheme)','New Person')">Create New</a>
+    </div>
+</div>
+   
+<div class="row">
+    <div class="col-md">
+        <div id="person-list">
+             @await Html.PartialAsync("_personsList", Model)
+        </div>
+    </div>
+
+</div>
+ 
