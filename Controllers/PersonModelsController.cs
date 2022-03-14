@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -9,6 +10,7 @@ using PersonSimpleCURD.Models;
 
 namespace PersonSimpleCURD.Controllers
 {
+    [Authorize]
     public class PersonModelsController : Controller
     {
         private readonly PersonDbContext _context;
@@ -18,12 +20,13 @@ namespace PersonSimpleCURD.Controllers
             _context = context;
         }
 
+        [ResponseCache(Duration =600)]
         // GET: PersonModels
         public async Task<IActionResult> Index()
         {
             return View(await _context.persons.ToListAsync());
         }
-
+        [ResponseCache(Duration = 60, VaryByQueryKeys =new string[] { "id" })]
         // GET: PersonModels/Details/5
         public async Task<IActionResult> Details(int? id)
         {

@@ -25,6 +25,8 @@ namespace PersonSimpleCURD
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+            services.AddRazorPages();
+            services.AddSession();
 
             services.AddDbContext<PersonDbContext>(Options => 
             Options.UseSqlServer(Configuration.GetConnectionString("DevConnection")));
@@ -44,14 +46,17 @@ namespace PersonSimpleCURD
             app.UseStaticFiles();
 
             app.UseRouting();
+            app.UseSession();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=PersonModels}/{action=Index}/{id?}");
+                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                endpoints.MapRazorPages();
             });
         }
     }
